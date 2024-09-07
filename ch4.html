@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://unpkg.com/react@latest/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@latest/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/prop-types/prop-types.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    function Btn({name, fun, fontSize}) {
+      return (
+        <button onClick={fun} style={{
+          backgroundColor: "tomato",
+          color: "white",
+          border: "none",
+          padding: "10px 20px",
+          borderRadius: "5px",
+          cursor: "pointer",
+          fontWeight: "bold",
+          fontSize: `${fontSize}px`,
+          }}>{name}</button>
+      )
+    }
+    const MemorizedBtn = React.memo(Btn) // 컴포넌트를 메모이제이션하여 불필요한 렌더링을 방지
+
+    MemorizedBtn.propTypes = { // 타입 검사해주는 react 라이브러리 기능임
+      name: PropTypes.string.isRequired, // 필수 속성 처리도 가능함
+      fun: PropTypes.func,
+      fontSize: PropTypes.number,
+    } 
+
+    function App() {
+      const [value, setValue] = React.useState("Save")
+      const changeValue = () => {
+        setValue("Confirm")
+      }
+      return (
+        <div>
+          <h1>Hello World</h1>
+          <Btn name={value} fun={changeValue}/>
+          <Btn name="Confirm" fontSize={20} />
+        </div>
+      );
+    }
+    const root = document.getElementById("root");
+    ReactDOM.render(<App />, root);
+  </script>
+</html>
