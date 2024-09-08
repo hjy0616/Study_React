@@ -14,7 +14,8 @@ const Movie = ({
       <h2>
         <Link to={`/movie/${id}`}>{title}</Link>
       </h2>
-      <p>{summary}</p>
+      {/*글자 235자 이상이면 자르기*/}
+      <p>{summary.length > 235 ? `${summary.slice(0, 235)}...` : summary}</p>
       <ul>
         {genres.map((genre) => (
           <li key={genre}>{genre}</li>
